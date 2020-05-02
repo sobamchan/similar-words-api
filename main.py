@@ -3,6 +3,7 @@ import random
 from typing import List
 from dotenv import load_dotenv
 from fastapi import FastAPI, Body, Header, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import gensim
 import editdistance
 
@@ -10,6 +11,20 @@ import editdistance
 load_dotenv()
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:8080",
+    "http://eigo-mimi.herokuapp.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 AUTH_KEY = os.getenv("SECRET")
 model = gensim.models.KeyedVectors.load("./m.model")
 vocab = [w for w, _ in model.vocab.items()]
