@@ -14,7 +14,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:8080",
-    "http://eigo-mimi.herokuapp.com",
+    "https://eigo-mimi.herokuapp.com",
 ]
 
 app.add_middleware(
